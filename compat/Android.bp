@@ -1,0 +1,51 @@
+// ATU-L21: Android 8.0 vendor compatibility libraries.
+// Android 11+ moved the android.hidl.base@1.0 / android.hidl.manager@1.0 code into libhidlbase;
+// old vendor binaries still have NEEDED entries with these names. Empty stubs link libhidlbase,
+// so the symbols resolve from there.
+cc_library_shared {
+    name: "atu_compat_hidl_base",
+    stem: "android.hidl.base@1.0",
+    srcs: ["empty.cpp"],
+    // libatu_shim: brings the shim symbols into every old vendor process that uses HIDL.
+    shared_libs: ["libhidlbase", "libatu_shim"],
+    compile_multilib: "both",
+    system_ext_specific: false,
+}
+
+cc_library_shared {
+    name: "atu_compat_hidl_manager",
+    stem: "android.hidl.manager@1.0",
+    srcs: ["empty.cpp"],
+    shared_libs: ["libhidlbase"],
+    compile_multilib: "both",
+}
+
+cc_library_shared {
+    name: "libatu_shim",
+    srcs: ["atu_shim.cpp"],
+    // Framework manifest fragments: health@2.0 (system service) and the gnss_vendor parent.
+    vintf_fragments: ["atu-health.xml", "atu-gnss.xml"],
+    shared_libs: ["liblog"],
+    cflags: ["-Wno-unused-parameter"],
+    compile_multilib: "both",
+}
+
+cc_library_shared {
+    name: "libatu_audio_shim",
+    srcs: ["atu_audio_shim.cpp"],
+    shared_libs: [
+        "android.hardware.audio.common@2.0",
+        "android.hardware.audio.common@2.0-util",
+        "libhidlbase",
+        "libutils",
+    ],
+    header_libs: ["libaudio_system_headers", "libhardware_headers"],
+    compile_multilib: "both",
+}
+
+cc_library_shared {
+    name: "atu_compat_icuuc",
+    stem: "libicuuc",
+    srcs: ["atu_icuuc.cpp"],
+    compile_multilib: "both",
+}

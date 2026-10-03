@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ATU-L21: clean-install defaults.
+     - Charging sound/vibration: Notifier.playChargingStartedFeedback got system_server killed by the watchdog. -->
+<resources>
+    <bool name="def_charging_sounds_enabled">false</bool>
+    <bool name="def_charging_vibration_enabled">false</bool>
+</resources>

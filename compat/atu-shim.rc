@@ -1,0 +1,32 @@
+
+# ATU-L21: the Android 12 SkiaGL render engine does not work with the 8.0-era Adreno driver
+# ("Unable to generate SkImage"); the older GLES engine is used.
+on early-init
+    setprop debug.renderengine.backend gles
+
+# ATU-L21: system_server wants IHealth 2.x, which the 8.0 vendor lacks. Use the Android 12 health@2.0 service.
+service atu-health-hal-2-0 /system/bin/hw/android.hardware.health@2.0-service
+    class hal
+    user system
+    group system
+    capabilities WAKE_ALARM BLOCK_SUSPEND
+    file /dev/kmsg w
+
+# ATU-L21: FunctionFS used to be set up by init.usb.rc in the Huawei 8.0 ramdisk, which 2SI no longer uses.
+# Android 12 adbd only uses FunctionFS; map the "adb" name to ffs in android_usb.
+on post-fs
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+
+# ATU-L21: in permissive mode SELinux audit records flood logd.
+on early-init
+    setprop ro.logd.auditd false
+
+# ATU-L21: the 8.0 vendor vndservicemanager speaks an incompatible protocol with the Android 12 libbinder.
+# The Android 12 vndservicemanager is declared under the same service name (system rc files are parsed first).
+service vndservicemanager /system/bin/vndservicemanager /dev/vndbinder
+    class core
+    user system
+    group system readproc

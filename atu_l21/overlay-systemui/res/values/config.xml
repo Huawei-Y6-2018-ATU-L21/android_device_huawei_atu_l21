@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ATU-L21: the privacy dot adds top/bottom ScreenDecorOverlay layers; with 6 layers the 8.0 SDM sends the
+     whole frame to the GPU (home screen ~12 FPS). Disabled to remove those layers. -->
+<resources>
+    <bool name="config_enablePrivacyDot">false</bool>
+</resources>

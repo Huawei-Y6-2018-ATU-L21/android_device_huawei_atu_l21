@@ -1,0 +1,11 @@
+# ATU-L21: with 2SI the root (system) is read-only; mount points used by the Huawei/Qualcomm 8.0 vendor init.
+# /firmware and /dsp are already labeled elsewhere. After mounting, the mounted filesystem decides the label; these are only for the empty directories underneath.
+/cust           u:object_r:system_file:s0
+/version        u:object_r:system_file:s0
+/patch_hw       u:object_r:system_file:s0
+/log            u:object_r:rootfs:s0
+
+# System-variant services (transition to the same domain as the vendor versions; init refuses unlabeled services)
+/system/bin/vndservicemanager                           u:object_r:vndservicemanager_exec:s0
+/system/bin/hw/android\.hardware\.health@2\.0-service   u:object_r:hal_health_default_exec:s0
+/system/bin/hw/android\.hardware\.media\.omx@1\.0-service   u:object_r:mediacodec_exec:s0

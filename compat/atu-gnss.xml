@@ -1,0 +1,13 @@
+<!-- ATU-L21: Qualcomm vendor.qti.gnss@1.0::ILocHidlGnss/gnss_vendor extends IGnss; the Android 12
+     hwservicemanager requires the parent to be declared with the same instance (missing from the 8.0 manifest). -->
+<manifest version="1.0" type="framework">
+    <hal format="hidl">
+        <name>android.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGnss</name>
+            <instance>gnss_vendor</instance>
+        </interface>
+    </hal>
+</manifest>

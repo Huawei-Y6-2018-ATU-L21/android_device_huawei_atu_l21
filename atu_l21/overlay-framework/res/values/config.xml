@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ATU-L21: wallpaper zoom produces a fractional crop + scale; the corner radius creates ScreenDecor layers.
+     Both make the 8.0 HWC fall back to GPU composition. -->
+<resources>
+    <item name="config_wallpaperMaxScale" format="float" type="dimen">1.0</item>
+    <dimen name="rounded_corner_radius">0px</dimen>
+    <dimen name="rounded_corner_radius_top">0px</dimen>
+    <dimen name="rounded_corner_radius_bottom">0px</dimen>
+</resources>

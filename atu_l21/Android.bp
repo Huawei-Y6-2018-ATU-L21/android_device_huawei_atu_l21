@@ -1,0 +1,24 @@
+// ATU-L21: with 6 layers on the home screen the 8.0 SDM HWC sends the whole frame to the GPU; RROs that remove extra layers.
+runtime_resource_overlay {
+    name: "AtuOverlaySystemUI",
+    manifest: "overlay-systemui/AndroidManifest.xml",
+    resource_dirs: ["overlay-systemui/res"],
+    product_specific: true,
+    sdk_version: "current",
+}
+
+runtime_resource_overlay {
+    name: "AtuOverlayFramework",
+    manifest: "overlay-framework/AndroidManifest.xml",
+    resource_dirs: ["overlay-framework/res"],
+    product_specific: true,
+    sdk_version: "current",
+}
+
+runtime_resource_overlay {
+    name: "AtuOverlaySettingsProvider",
+    manifest: "overlay-settingsprovider/AndroidManifest.xml",
+    resource_dirs: ["overlay-settingsprovider/res"],
+    product_specific: true,
+    sdk_version: "current",
+}

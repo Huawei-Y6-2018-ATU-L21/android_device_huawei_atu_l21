@@ -1,0 +1,19 @@
+# ATU-L21: service overrides. Imported at the very top of /system/etc/init/hw/init.rc,
+# so it is parsed before the vendor init.<hw>.rc imports and same-named vendor services are ignored.
+# ATU-L21: vendor services that are still incompatible (they crash-loop and waste CPU/logs).
+# Remaining override: the old health@1.0 (the system health@2.0 service is used).
+service health-hal-1-0 /system/bin/true
+    disabled
+    oneshot
+
+# ATU-L21: the 8.0 vendor OMX service links Android 8.0 system libraries and does not start. The system
+# variant built from the same source loads the Qualcomm codec plugin (/vendor/lib/libstagefrighthw.so).
+service mediacodec /system/bin/hw/android.hardware.media.omx@1.0-service
+    class main
+    user mediacodec
+    group camera drmrpc mediadrm audio
+    ioprio rt 4
+    task_profiles ProcessCapacityHigh
+
+# RIL/per_proxy/Widevine are enabled again: Parcel size in libbinder now matches 8.0;
+# protobuf v28 comes from the linkerconfig legacy_vendor section (see docs/VENDOR-AUDIT.md).
