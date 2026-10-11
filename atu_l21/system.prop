@@ -1,0 +1,32 @@
+# ATU-L21 (/system/build.prop; read before /vendor/build.prop by the 8.0 init, so these ro.* values win)
+
+# Identity (the 8.0 vendor says brand=Android, device=msm8937_64; the 8.0 init does not derive ro.product.*)
+ro.product.brand=HUAWEI
+ro.product.manufacturer=HUAWEI
+ro.product.model=ATU-L21
+ro.product.device=atu_l21
+ro.product.name=atu_l21
+
+# The Huawei kernel log prefix sends the logd.klogd parser into a 100% CPU loop.
+ro.logd.kernel=false
+
+# llkd / khungtaskd: on debuggable builds they are on by default and panic the kernel on a suspected
+# live-lock / hung task -> not worth the risk on the 3.18 Huawei kernel. (llkd also runs as a user name the
+# 8.0 init does not know.)
+ro.llk.enable=false
+ro.khungtask.enable=false
+
+# Without a value ColorDisplayService picks "boosted" (saturation 1.1) -> non-identity color matrix ->
+# the 8.0 SDM HWC sends the whole frame to the GPU. Natural color is the default.
+persist.sys.sf.color_saturation=1.0
+
+# Android Go / 2 GB RAM
+ro.config.low_ram=true
+ro.lmk.use_psi=false
+ro.lmk.use_minfree_levels=true
+ro.lmk.critical_upgrade=true
+ro.lmk.upgrade_pressure=40
+ro.lmk.downgrade_pressure=60
+ro.lmk.kill_heaviest_task=false
+dalvik.vm.dex2oat-threads=2
+dalvik.vm.image-dex2oat-threads=2

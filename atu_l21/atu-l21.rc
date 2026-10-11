@@ -1,0 +1,10 @@
+# ATU-L21: the 8.0 vendor build.prop (loaded after /system/build.prop) sets heap values for a 3 GB stock
+# configuration (heapgrowthlimit 192m, heapsize 512m, heapstartsize 16m). Android Go values for 2 GB RAM,
+# set after all property files are loaded and before zygote starts.
+on post-fs-data
+    setprop dalvik.vm.heapstartsize 8m
+    setprop dalvik.vm.heapgrowthlimit 128m
+    setprop dalvik.vm.heapsize 256m
+    setprop dalvik.vm.heaptargetutilization 0.75
+    setprop dalvik.vm.heapminfree 512k
+    setprop dalvik.vm.heapmaxfree 8m
