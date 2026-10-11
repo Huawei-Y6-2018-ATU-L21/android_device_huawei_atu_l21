@@ -6,7 +6,17 @@ TARGET_GAPPS_ARCH := arm64
 $(call inherit-product, device/phh/treble/base-pre.mk)
 include build/make/target/product/aosp_arm64_ab.mk
 $(call inherit-product, vendor/vndk/vndk.mk)
+# No phh hardware_overlay list (TrebleApp "Phh Treble Settings" + ~340 overlays for other phones); only the overlays
+# that are active on ATU-L21 (checked with `cmd overlay dump` on the phone).
+TARGET_PHH_NO_HARDWARE_OVERLAYS := true
 $(call inherit-product, device/phh/treble/base.mk)
+PRODUCT_PACKAGES += \
+    treble-overlay-huawei-ATU \
+    treble-overlay-devinputjack \
+    treble-overlay-NightMode \
+    treble-overlay-highpriomisc \
+    treble-overlay-Telephony-LTE \
+    treble-overlay-SystemUI-FalseLocks
 $(call inherit-product, device/phh/treble/base-sas.mk)
 $(call inherit-product, device/phh/treble/lineage.mk)
 $(call inherit-product, device/atu/atu_l21/device.mk)
