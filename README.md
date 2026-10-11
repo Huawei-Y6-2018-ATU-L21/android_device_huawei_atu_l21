@@ -13,7 +13,8 @@ The build is AndyYan's `treble_arm64_avN` stack (phh A-only arm64 GSI on top of 
 | `atu_l21/system.prop` | identity, Android Go, llkd off, logd and display workarounds |
 | `atu_l21/atu-l21.rc` | Go heap values (the 8.0 vendor overrides them otherwise) |
 
-The phone keeps the stock Android 8.0 init in the ramdisk (only file-based encryption is disabled), so
-`/product/build.prop` is not read and `/vendor/build.prop` is loaded after `/system/build.prop`; see `device.mk`.
+The phone keeps the stock (Huawei-modified) Android 8.0 init in the ramdisk (only file-based encryption is disabled).
+It reads `/system/etc/prop.default` but never `/system/build.prop`; the build appends build.prop to prop.default
+(`TARGET_DEFAULT_PROP_INCLUDES_BUILD_PROP`, a small build/make patch). See `device.mk`.
 
 Build instructions and the source patches: [android_huawei_atu_l21](https://github.com/Huawei-Y6-2018-ATU-L21/android_huawei_atu_l21).

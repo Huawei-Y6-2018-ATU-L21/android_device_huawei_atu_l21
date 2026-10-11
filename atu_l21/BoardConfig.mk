@@ -7,3 +7,7 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2751463424
 
 # Goes into /system/build.prop (see system.prop)
 TARGET_SYSTEM_PROP += device/atu/atu_l21/system.prop
+
+# The Huawei 8.0 init reads /system/etc/prop.default but never /system/build.prop (tested on the phone):
+# build/make appends build.prop to prop.default (ATU-L21 build/make patch).
+TARGET_DEFAULT_PROP_INCLUDES_BUILD_PROP := true

@@ -1,4 +1,5 @@
-# ATU-L21 (/system/build.prop; read before /vendor/build.prop by the 8.0 init, so these ro.* values win)
+# ATU-L21 (/system/build.prop, appended to /system/etc/prop.default: the Huawei 8.0 init reads prop.default
+# first, then /vendor/build.prop, and never /system/build.prop -> these ro.* values win over the vendor)
 
 # Identity (the 8.0 vendor says brand=Android, device=msm8937_64; the 8.0 init does not derive ro.product.*)
 ro.product.brand=HUAWEI
